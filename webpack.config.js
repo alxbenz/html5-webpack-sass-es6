@@ -13,7 +13,9 @@ module.exports = {
   },
   devServer: {
     port: 3333,
-    open: true
+    open: true,
+    contentBase: path.resolve(__dirname, './src/'),
+    watchContentBase: true
   },
   devtool: 'source-map',
   module: {
@@ -48,6 +50,10 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html'
     }),
-    new WebpackMd5Hash()
+    new WebpackMd5Hash(),
+    new CopyWebpackPlugin([
+      { from: 'src/assets', to: 'assets' },
+      { from: 'src/robots.txt', to: 'robots.txt' }
+    ])
   ]
 };
